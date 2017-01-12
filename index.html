@@ -15,7 +15,8 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
 		<link rel="stylesheet" href="reveal/css/reveal.css">
-		<link rel="stylesheet" href="reveal/css/theme/gdicool.css" id="theme">
+    <link rel="stylesheet" href="reveal/css/theme/gdicool.css" id="theme">
+		<link rel="stylesheet" href="reveal/css/clt.css" id="theme">
 
 		<!-- For syntax highlighting -->
 		<!-- light editor<link rel="stylesheet" href="lib/css/light.css">-->
@@ -73,7 +74,7 @@
           <h3>What we will cover today</h3>
           <ul>
             <li class ="fragment">What is version control and why should we care?</li>
-            <li class ="fragment">Basics of git -- the essential commands</li>
+            <li class ="fragment">Basics of git — the essential commands</li>
             <li class ="fragment">"Gitting" social with GitHub</li>
           </ul>
         </section>
@@ -106,9 +107,9 @@
         <section>
           <section>
             <h3>Brief history of Version Control</h3>
-            <p><span class ="green">1990s</span> -- CVS (Concurrent Version Systems)</p>
-            <p><span class ="green">2000s</span> -- SVN (Apache Subversion)</p>
-            <p><span class ="green">2005</span> -- Git (well, Git)</p>
+            <p><span class ="green">1990s</span> — CVS (Concurrent Version Systems)</p>
+            <p><span class ="green">2000s</span> — SVN (Apache Subversion)</p>
+            <p><span class ="green">2005</span> — Git, Mercurial (distributed version control systems)</p>
           </section>
           <section>
             <h3>Version Control Types</h3>
@@ -125,12 +126,12 @@
           </section>
           <section>
             <h3>Version Control Distribution</h3>
-            <a href = "http://redmonk.com/sogrady/2013/12/19/dvcs-and-git-2013/" target="_blank" alt ="Version Control Statistics: 2010 vs 2013"><img src = "images/2013_vc_market_share.png" alt ="Version control share between Bazaar, CVS, Git, Mercurial and Subversion"/></a>
+            <a href = "http://redmonk.com/sogrady/2013/12/19/dvcs-and-git-2013/" target="_blank" alt ="Version Control Statistics: 2010 vs 2013"><img src = "images/ohloh-vcs-dist-wm.png" alt ="Version control share between Bazaar, CVS, Git, Mercurial and Subversion"/></a>
           </section>
 
           <section>
             <h3>Version Control Change</h3>
-            <a href = "http://redmonk.com/sogrady/2013/12/19/dvcs-and-git-2013/" target="_blank" alt ="Version Control Statistics: 2010 vs 2013"><img src = "images/2013_change_in_vc_popularity.png" alt ="Version control popularity change between 2010 and 2013 between Bazaar, CVS, Git, Mercurial and Subversion"/></a>
+            <a href = "http://redmonk.com/sogrady/2013/12/19/dvcs-and-git-2013/" target="_blank" alt ="Version Control Statistics: 2010 vs 2013"><img src = "images/ohloh-vcs-change-wm.png" alt ="Version control popularity change between 2010 and 2013 between Bazaar, CVS, Git, Mercurial and Subversion"/></a>
             </section>
         </section>
         <!-- Git-->
@@ -138,9 +139,9 @@
           <h3>Intro to Git</h3>
           <p>Goals of Git Design</p>
           <ul>
-            <li>Fast -- add to your team and code base quickly</li>
+            <li>Fast — add to your team and code base quickly</li>
             <li>Distributed (see slide above) </li>
-            <li>Each commit has a corresponding hash (track changes from everyone)</li>
+            <li>Each commit has a corresponding “hash” (track changes from everyone)</li>
             <li>Everyone has a local copy of the history</li>
           </ul>
         </section>
@@ -223,27 +224,59 @@ $ git config --list
           </section>
           <section>
             <h3>Add files</h3>
-            <p>Create a new hello_world.txt file in your new folder</p>
+            <p>Create a new hello_world.html file in your new folder</p>
+            <pre><code contenteditable class ="command-line">
+&lt;!DOCTYPE html>
+&lt;html lang="en">
+&lt;head>
+  &lt;meta charset="UTF-8">
+  &lt;title>Hello World&lt;/title>
+&lt;/head>
+&lt;body>
+  &lt;h1>Hello World&lt;/h1>
+&lt;/body>
+&lt;/html>
+            </code></pre>
+            <p>Grab the code from this gist:</p>
+            <p><a target="_blank" href="http://bit.ly/git-basics-hello-world">http://bit.ly/git-basics-hello-world</a></p>
+          </section>
+          <section>
             <p>Check repo status</p>
             <pre><code contenteditable class ="command-line">
   git status
             </code></pre>
             <p>Tell Git to track our new file</p>
             <pre><code contenteditable class ="command-line">
-  git add hello_world.txt
+  git add hello_world.html
   git status
             </code></pre>
             <p>File is now tracked by Git</p>
           </section>
           <section>
             <h3>Changes and commits</h3>
-            <p>Open hello_world.txt and add some more text</p>
+            <p>Open hello_world.html and add some more text</p>
+            <pre><code contenteditable class ="command-line">
+&lt;!DOCTYPE html>
+&lt;html lang="en">
+&lt;head>
+  &lt;meta charset="UTF-8">
+  &lt;title>Hello World&lt;/title>
+&lt;/head>
+&lt;body>
+  &lt;h1>Hello World&lt;/h1>
+  <strong><em>&lt;p>How are You?&lt;/p></em></strong>
+&lt;/body>
+&lt;/html>
+            </code></pre>
+          </section>
+          <section>
+            <p>Check repo status</p>
             <pre><code contenteditable class ="command-line">
   git status
             </code></pre>
             <p>Stage and commit the change</p>
             <pre><code contenteditable class ="command-line">
-  git add hello_world.txt
+  git add hello_world.html
   git commit -m "First commit. Added hello world to repository."
             </code></pre>
           </section>
@@ -288,40 +321,49 @@ $ git config --list
             <h4>Undoing local changes</h4>
             <p>If you haven't committed yet</p>
             <div class = "fragment">
-              <p>Open hello_world.txt and add some new text</p>
+              <p>Open hello_world.html and add some new text</p>
               <pre><code contenteditable class ="command-line">
-  change hello_world.txt
-  git checkout hello_world.txt
+  <span change="hello_world.html"></span>
+  git checkout hello_world.html
               </code></pre>
             </div>
-            <p class="fragment">Look at hello_world.txt. Your changes are gone.</p>
+            <p class="fragment">Look at hello_world.html. Your changes are gone.</p>
           </section>
           <section>
             <h3>Nobody's Perfect</h3>
             <h4>Undoing staged changes</h4>
             <div class = "fragment">
-              <p>Open hello_world.txt and add some new text</p>
+              <p>Open hello_world.html and add some new text</p>
               <pre><code contenteditable class ="command-line">
-git add hello_world.txt
-git reset HEAD hello_world.txt
-git checkout hello_world.txt
+git add hello_world.html
+git status
+git reset HEAD hello_world.html
+git status
+git checkout hello_world.html
+git status
               </code></pre>
             </div>
-            <p class="fragment">Look at hello_world.txt. Your changes are gone.</p>
+            <p class="fragment">Look at hello_world.html. Your changes are gone.</p>
           </section>
           <section>
             <h3>Nobody's Perfect</h3>
-            <h4>Undoing staged changes</h4>
+            <h4>Undoing committed changes</h4>
             <div class = "fragment">
-              <p>Open hello_world.txt and add some new text</p>
+              <p>Open hello_world.html and add some new text</p>
               <pre><code contenteditable class ="command-line">
-git add hello_world.txt
-git commit -am "Changing and committing some lines"
+git add hello_world.html
+git commit -m "Changing and committing some lines"
 git log --pretty=oneline
 git revert [HASH]
               </code></pre>
             </div>
-            <p class="fragment">Look at hello_world.txt. Your changes are gone.</p>
+            <p class="fragment">Look at hello_world.html. Your changes are gone.</p>
+            <div class = "fragment">
+              <pre><code contenteditable class ="command-line">
+git status
+              </code></pre>
+            </div>
+            <p class="fragment">Gone… but not forgotten.</p>
           </section>
           <section>
             <h3>Nobody's Perfect</h3>
@@ -361,9 +403,9 @@ git rm my_other_file.txt
             <pre><code contenteditable class ="command-line">
 git checkout -b version2
             </code></pre>
-            <p>Add new lines to hello_world.txt</p>
+            <p>Add new lines to hello_world.html</p>
             <pre><code contenteditable class ="command-line">
-git add hello_world.txt
+git add hello_world.html
 git commit -m "Adding changes to version 2"
             </code></pre>
           </section>
@@ -374,11 +416,11 @@ git commit -m "Adding changes to version 2"
             <pre><code contenteditable class ="command-line">
 git branch
             </code></pre>
-            <p>Switch to master and look at hello_world.txt</p>
+            <p>Switch to master and look at hello_world.html</p>
             <pre><code contenteditable class ="command-line">
 git checkout master
             </code></pre>
-            <p>Switch to version2 and look at hello_world.txt</p>
+            <p>Switch to version2 and look at hello_world.html</p>
             <pre><code contenteditable class ="command-line">
 git checkout version2
             </code></pre>
@@ -399,16 +441,16 @@ git merge version2
           <section>
             <h3>Merging</h3>
             <h4>Merge conflicts</h4>
-            <p>Change first line in hello_world.txt in master branch</p>
+            <p>Change first line in hello_world.html in master branch</p>
             <pre><code contenteditable class ="command-line">
-git add hello_world.txt
+git add hello_world.html
 git commit -m "Changing first line in master"
             </code></pre>
-            <p>Change first line in hello_world.txt in version2 branch</p>
+            <p>Change first line in hello_world.html in version2 branch</p>
             <pre><code contenteditable class ="command-line">
 git checkout version2
-# open hello_world.txt and change first line
-git add hello_world.txt
+# open hello_world.html and change first line
+git add hello_world.html
 git commit -m "Changing first line in version2"
             </code></pre>
           </section>
@@ -494,6 +536,11 @@ git commit -m "Fixing merging conflicts"
 git push origin master
             </code></pre>
           </section>
+          <section>
+            <h3>GitHub</h3>
+            <h4>Helpful memory aid</h4>
+            <img src = "images/pull-first-to-avoid-conflicts.jpg" alt ="Whenever I see a door that says 'Push', I always pull first to avoid conflicts."/>
+          </section>
         </section>
         <!-- Fork a repository-->
         <section>
@@ -549,6 +596,15 @@ git fetch upstream
             <h3>Managing pull requests</h3>
              <p>How to manage pull requests is out of the scope of this short workshop, but you can learn more from the <a href = "https://help.github.com/categories/63/articles" target ="_blank" alt = "Links to tutorials on pull requests and collaboration">Github Collaborating Tutorials</a>
           </section>
+        </section>
+        <!-- -->
+        <section>
+          <h2>Resources</h2>
+          <ul>
+            <li>Pro Git book online — <a href="https://git-scm.com/book/en/v2" target="_blank">https://git-scm.com/book/en/v2</a></li>
+            <li>GitHub Guides — <a href="https://guides.github.com" target="_blank">https://guides.github.com</a></li>
+            <li>This presentation — <a href="https://github.com/vjwilson/gdi-featured-git-github" target="_blank">https://github.com/vjwilson/gdi-featured-git-github</a></li>
+          </ul>
         </section>
         <!-- -->
         <section>
